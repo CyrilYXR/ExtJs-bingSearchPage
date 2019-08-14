@@ -13,18 +13,31 @@
         Ext.onReady(function () {
 
             Ext.ns('cyril');
-            cyril.inputField = Ext.extend(Ext.form.Field,{
+            cyril.inputField = Ext.extend(Ext.form.Field, {
                 // xtype: 'field',
                 style: 'font-size: 20px',
                 width: 650,
                 height: 53,
-                initComponent: function(){
+                initComponent: function () {
                     cyril.inputField.superclass.initComponent.call(this);
+                    this.on('focus', this.inputFieldClick, this);
+                    this.on('blur', this.inputFieldBlur, this);
+                },
+                inputFieldClick: function () {
+                    var hidebg = document.getElementById('hidebg');
+                    hidebg.style.display = "block";
+                    hidebg.style.height = "969px";
+                    Ext.getCmp('container').show();
+                    Ext.getCmp('logo').show();
+                },
+                inputFieldBlur: function () {
+                    var hidebg = document.getElementById('hidebg');
+                    hidebg.style.display = "none";
                 }
             })
             Ext.reg('cyril.inputField', cyril.inputField)
 
-            cyril.search = Ext.extend(Ext.Component,{
+            cyril.search = Ext.extend(Ext.Component, {
                 cls: 'icon',
                 // xtype: 'box',
                 autoEl: {
@@ -35,10 +48,12 @@
             Ext.reg('cyril.search', cyril.search)
 
             var baseCmp = new Ext.Container({
+                id: 'container',
                 layout: 'table',
                 renderTo: document.body,
                 style: 'margin: 10% 10% 0  10%',
                 items: [{
+                        id: 'logo',
                         xtype: 'box',
                         style: 'margin: 0 20px 0 0',
                         autoEl: {
@@ -53,10 +68,18 @@
                         width: 650,
                         items: [{
                             title: '国内版',
-                            items: [{xtype:'cyril.inputField'}, {xtype:'cyril.search'}]
+                            items: [{
+                                xtype: 'cyril.inputField'
+                            }, {
+                                xtype: 'cyril.search'
+                            }]
                         }, {
                             title: '国际版',
-                            items: [{xtype:'cyril.inputField'}, {xtype:'cyril.search'}]
+                            items: [{
+                                xtype: 'cyril.inputField'
+                            }, {
+                                xtype: 'cyril.search'
+                            }]
                         }]
                     }
                 ]
@@ -76,10 +99,22 @@
             top: 10px;
             cursor: pointer;
         }
+
+        #hidebg {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            background-color: #000;
+            width: 100%;
+            filter: alpha(opacity=60);
+            opacity: 0.6;
+            display: none;
+        }
     </style>
 </head>
 
 <body>
+    <div id="hidebg"></div>
 </body>
 
 </html>
