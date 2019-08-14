@@ -1,0 +1,85 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>bing</title>
+
+    <script type="text/javascript" src="../ext/ext-base.js"></script>
+    <script type="text/javascript" src="../ext/ext-all.js"></script>
+    <link rel="stylesheet" type="text/css" href="../ext/ext-all.css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript">
+        Ext.onReady(function () {
+
+            Ext.ns('cyril');
+            cyril.inputField = Ext.extend(Ext.form.Field,{
+                // xtype: 'field',
+                style: 'font-size: 20px',
+                width: 650,
+                height: 53,
+                initComponent: function(){
+                    cyril.inputField.superclass.initComponent.call(this);
+                }
+            })
+            Ext.reg('cyril.inputField', cyril.inputField)
+
+            cyril.search = Ext.extend(Ext.Component,{
+                cls: 'icon',
+                // xtype: 'box',
+                autoEl: {
+                    tag: 'img',
+                    src: 'search.png'
+                }
+            })
+            Ext.reg('cyril.search', cyril.search)
+
+            var baseCmp = new Ext.Container({
+                layout: 'table',
+                renderTo: document.body,
+                style: 'margin: 10% 10% 0  10%',
+                items: [{
+                        xtype: 'box',
+                        style: 'margin: 0 20px 0 0',
+                        autoEl: {
+                            tag: 'img',
+                            src: 'logo.png'
+                        }
+                    },
+                    {
+                        xtype: 'tabpanel',
+                        plain: true,
+                        activeTab: 0,
+                        width: 650,
+                        items: [{
+                            title: '国内版',
+                            items: [{xtype:'cyril.inputField'}, {xtype:'cyril.search'}]
+                        }, {
+                            title: '国际版',
+                            items: [{xtype:'cyril.inputField'}, {xtype:'cyril.search'}]
+                        }]
+                    }
+                ]
+            })
+
+        })
+    </script>
+
+    <style>
+        body {
+            background-image: url(bg.jpg);
+        }
+
+        .icon {
+            position: absolute;
+            left: 600PX;
+            top: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+</body>
+
+</html>
